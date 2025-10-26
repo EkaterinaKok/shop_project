@@ -14,8 +14,8 @@ public class App {
         Product product3 = new SimpleProduct("Лук", 30);
         Product discountedProduct1 = new DiscountedProduct("Лимон", 60,20);
         Product discountedProduct2 = new DiscountedProduct("Перец", 150,20);
-        Product fixPriceProduct1 = new FixPriceProduct("Шоколад", 50);
-        Product fixPriceProduct2 = new FixPriceProduct("Печенье", 50);
+        Product fixPriceProduct1 = new FixPriceProduct("Шоколад");
+        Product fixPriceProduct2 = new FixPriceProduct("Печенье");
 
 //Корзина для проверки ДЗ по абстракции!
         System.out.println("\nКорзина:");

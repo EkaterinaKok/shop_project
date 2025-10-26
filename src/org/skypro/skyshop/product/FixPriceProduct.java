@@ -1,12 +1,11 @@
 package org.skypro.skyshop.product;
 
 public class FixPriceProduct extends Product{
-    private final int FIX_PRICE;
+    private final int FIX_PRICE = 50;
     private Product[] products = new Product[5];
 
-    public FixPriceProduct(String name, int FIX_PRICE) {
+    public FixPriceProduct(String name) {
         super(name);
-        this.FIX_PRICE = FIX_PRICE;
     }
 
     @Override
