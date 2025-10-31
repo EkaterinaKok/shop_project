@@ -1,5 +1,7 @@
 package org.skypro.skyshop.basket;
 
+import org.skypro.skyshop.product.FixPriceProduct;
+import org.skypro.skyshop.product.DiscountedProduct;
 import org.skypro.skyshop.product.Product;
 
 import java.util.Arrays;
@@ -25,32 +27,62 @@ public class ProductBasket {
     }
 
     public int total() {
+        if (products == null) {
+            System.out.println("В корзине пусто.");
+            return -1;
+        }
         for (Product product : products) {
             if (product != null) {
                 total += product.getPrice();
             } else {
-                System.out.println("В корзине пусто.");
                 break;
             }
         }
         return total;
     }
 
+    //Печать корзины
     public void print() {
-        if (products[0] != null) { //Входим в массив, если первый элемент не пустой
+        int count = 0;
+        boolean hasProducts = false;
+
+        if (products != null) {
             for (Product product : products) {
-                if (product == null) { //Если элемент внутри пустой, значит список окончен
-                    break; // значит останавливаем цикл
+                if (product != null) { // Если элемент не null
+                    hasProducts = true;
+                    if (product.isSpecial()) {
+                        count++;
+                    }
+                    System.out.println(product);
                 }
-                System.out.println(product.getName() + " : " + product.getPrice());
             }
-        } else System.out.println("В корзине пусто.");
+        }
+
+        // Если не нашли ни одного товара
+        if (!hasProducts) {
+            System.out.println("В корзине пусто.");
+            return;
+        }
+
+        printTotal();
+        System.out.println("Товаров по специальной цене: " + count);
     }
 
     public void printTotal() {
-        print();
+        boolean hasProducts = false;
+
+        for (Product product : products) {
+            if (product != null) { // Если элемент не null
+                hasProducts = true;
+                break;
+            }
+        }
+        if (!hasProducts) {
+            System.out.println("В корзине пусто.");
+            return;
+        }
         System.out.println("---------------------");
-        System.out.println("Итого: " + total() + " руб.");
+        System.out.println("Итого: " + this.total() + " руб.");
     }
 
     public boolean productSearch(String name) {
@@ -77,6 +109,6 @@ public class ProductBasket {
 
     public void clearArr() {
         Arrays.fill(products, null);
+        System.out.println("Корзина очищена.");
     }
-
 }
