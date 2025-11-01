@@ -9,7 +9,7 @@ import java.util.Arrays;
 public class ProductBasket {
     private Product[] products = new Product[5];
     private int total;
-    private int sizeArr;
+    private int sizeArr = 0;
 
     public void addProduct(Product product) {
         if (product == null) {
