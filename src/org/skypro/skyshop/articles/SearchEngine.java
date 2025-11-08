@@ -49,4 +49,31 @@ public class SearchEngine {
         }
     }
 
+    public Searchable searchSearchable(String string) {
+        String substring = string;
+        int countMax = 0;
+        Searchable bestResult = null;
+
+        for (Searchable searchable : searchables) {
+            int count = 0;
+            int index = 0;
+            String str = searchable.getSearchTerm();
+            int indexSubstring = str.indexOf(substring, index);
+
+            while (indexSubstring != -1) {
+                count++;
+                index = indexSubstring + substring.length();
+                indexSubstring = str.indexOf(substring, index);
+                if (count > countMax) {
+                    countMax = count;
+                    bestResult = searchable;
+                }
+            }
+        }
+        if (bestResult == null) {
+            throw new BestResultNotFound();
+        }
+        return bestResult;
+    }
+
 }
