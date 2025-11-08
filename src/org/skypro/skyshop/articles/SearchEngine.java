@@ -49,7 +49,7 @@ public class SearchEngine {
         }
     }
 
-    public Searchable searchSearchable(String string) {
+    public Searchable searchSearchable(String string) throws BestResultNotFound {
         String substring = string;
         int countMax = 0;
         Searchable bestResult = null;

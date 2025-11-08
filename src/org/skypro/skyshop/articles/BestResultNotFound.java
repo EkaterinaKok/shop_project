@@ -1,6 +1,8 @@
 package org.skypro.skyshop.articles;
 
-public class BestResultNotFound extends NullPointerException{
+import java.io.IOException;
+
+public class BestResultNotFound extends IOException {
 
     public BestResultNotFound() {
     }
