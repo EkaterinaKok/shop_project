@@ -1,6 +1,7 @@
 package org.skypro.skyshop;
 
 import org.skypro.skyshop.articles.Article;
+import org.skypro.skyshop.articles.BestResultNotFound;
 import org.skypro.skyshop.articles.SearchEngine;
 import org.skypro.skyshop.articles.Searchable;
 import org.skypro.skyshop.basket.ProductBasket;
@@ -143,5 +144,67 @@ public class App {
         Searchable[] test1 = testSearch.search("Огурец");
         System.out.println(Arrays.toString(test1));
 
+//        Проверка для ДЗ по исключениям
+// 2. Демонстрация проверки данных в классе main
+        System.out.println("\nПРОВЕРКА ДЗ ПО ИСКЛЮЧЕНИЯМ:");
+        try {
+            Product product4 = new SimpleProduct("", 10);
+        } catch (IllegalArgumentException e){
+            System.out.println(e.getMessage());
+        }
+        try {
+            Product product5 = new SimpleProduct("   ", 20);
+        } catch (IllegalArgumentException e){
+            System.out.println(e.getMessage());
+        }
+        try {
+            Product product6 = new SimpleProduct(null, 30);
+        } catch (IllegalArgumentException e){
+            System.out.println(e.getMessage());
+        }
+        try {
+            Product product7 = new SimpleProduct("Икра", -5);
+        } catch (IllegalArgumentException e){
+            System.out.println(e.getMessage());
+        }
+        try {
+            Product product8 = new SimpleProduct("Кетчуп", 0);
+        } catch (IllegalArgumentException e){
+            System.out.println(e.getMessage());
+        }
+        try {
+            Product discountedProduct3 = new DiscountedProduct("Кукуруза", 0, 0);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+        try {
+            Product discountedProduct4 = new DiscountedProduct("Кукуруза", 100, 110);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+// 3. Реализация метода поиска самого подходящего элемента
+        System.out.println("\nВернуть объект,где максимальное количество вхождений подстроки:");
+        Searchable article5 = new Article("Скорее", "Беги, беги скорее, беги без оглядки!");
+        Searchable article6 = new Article("Без оглядки", "Беги, беги скорее, без оглядки!");
+        Searchable article7 = new Article("Беги", "Беги, беги, беги скорее, беги без оглядки!");
+        SearchEngine searchEngineTest = new SearchEngine(3);
+        searchEngineTest.add(article5);
+        searchEngineTest.add(article6);
+        searchEngineTest.add(article7);
+
+// 5. Демонстрация нового метода поиска
+        try {
+            System.out.println(searchEngineTest.searchSearchable("беги"));
+        } catch (BestResultNotFound b) {
+            System.out.println(b.getMessage());
+        }
+
+        try {
+            System.out.println(searchEngineTest.searchSearchable("курица"));
+        } catch (BestResultNotFound b) {
+            System.out.println(b.getMessage());
+        }
+
     }
+
 }

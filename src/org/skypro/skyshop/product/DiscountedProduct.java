@@ -6,8 +6,14 @@ public class DiscountedProduct extends Product{
     private Product[] products = new Product[5];
     private boolean isPriceCalculated;
 
-    public DiscountedProduct(String name, int basePrice, int discountInPercentInt) {
+    public DiscountedProduct(String name, int basePrice, int discountInPercentInt) throws IllegalArgumentException{
         super(name);
+        if (basePrice <= 0) {
+            throw new IllegalArgumentException("Неверная цена.");
+        }
+        if (discountInPercentInt < 0 || discountInPercentInt > 100){
+            throw new IllegalArgumentException("Неверный процент.");
+        }
         this.basePrice = basePrice;
         this.discountInPercentInt = discountInPercentInt;
     }
