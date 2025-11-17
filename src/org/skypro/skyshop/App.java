@@ -10,7 +10,9 @@ import org.skypro.skyshop.product.FixPriceProduct;
 import org.skypro.skyshop.product.Product;
 import org.skypro.skyshop.product.SimpleProduct;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class App {
     public static void main(String[] args) {
@@ -87,7 +89,7 @@ public class App {
         basket1.productSearch("Лук");
 
         //ДЗ по разделу ООП: полиморфизм и интерфейсы
-        SearchEngine searchEngine = new SearchEngine(11);
+        SearchEngine searchEngine = new SearchEngine();
         searchEngine.add(product1);
         searchEngine.add(product2);
         searchEngine.add(product3);
@@ -117,32 +119,32 @@ public class App {
         System.out.println("\nКоличество элементов в массиве: " + searchEngine.getSizeArr());
 
         System.out.println("\nВывод полученного массива из поиска:");
-        Searchable[] searcha1 = searchEngine.search("Лимон");
-        System.out.println(Arrays.toString(searcha1));
-        Searchable[] searcha2 = searchEngine.search("Огурец");
-        System.out.println(Arrays.toString(searcha2));
-        Searchable[] searcha3 = searchEngine.search("Шоколад");
-        System.out.println(Arrays.toString(searcha3));
-        Searchable[] searcha4 = searchEngine.search("Заголовок 1");
-        System.out.println(Arrays.toString(searcha4));
-        Searchable[] searcha5 = searchEngine.search("Неизвестный текст");
-        System.out.println(Arrays.toString(searcha5));
+        List<Searchable> searcha1 = searchEngine.search("Лимон");
+        System.out.println(searcha1);
+        List<Searchable> searcha2 = searchEngine.search("Огурец");
+        System.out.println(searcha2);
+        List<Searchable> searcha3 = searchEngine.search("Шоколад");
+        System.out.println(searcha3);
+        List<Searchable> searcha4 = searchEngine.search("Заголовок 1");
+        System.out.println(searcha4);
+        List<Searchable> searcha5 = searchEngine.search("Неизвестный текст");
+        System.out.println(searcha5);
 
-        SearchEngine testSearch = new SearchEngine(10);
+        SearchEngine testSearch = new SearchEngine();
         testSearch.add(product1);
         testSearch.add(product2);
         testSearch.add(product3);
         testSearch.add(product1);
         testSearch.add(product2);
         testSearch.add(product3);
-        testSearch.add(product1);  // Огурцов 6, выведет 5
+        testSearch.add(product1);  // Огурцов 6
         testSearch.add(product1);
         testSearch.add(product1);
         testSearch.add(product1);
 
         System.out.println("\nТест на количество в массиве searh:");
-        Searchable[] test1 = testSearch.search("Огурец");
-        System.out.println(Arrays.toString(test1));
+        List<Searchable> test1 = testSearch.search("Огурец");
+        System.out.println("Список найденных продуктов: " + test1);
 
 //        Проверка для ДЗ по исключениям
 // 2. Демонстрация проверки данных в классе main
@@ -187,7 +189,7 @@ public class App {
         Searchable article5 = new Article("Скорее", "Беги, беги скорее, беги без оглядки!");
         Searchable article6 = new Article("Без оглядки", "Беги, беги скорее, без оглядки!");
         Searchable article7 = new Article("Беги", "Беги, беги, беги скорее, беги без оглядки!");
-        SearchEngine searchEngineTest = new SearchEngine(3);
+        SearchEngine searchEngineTest = new SearchEngine();
         searchEngineTest.add(article5);
         searchEngineTest.add(article6);
         searchEngineTest.add(article7);
@@ -204,6 +206,23 @@ public class App {
         } catch (BestResultNotFound b) {
             System.out.println(b.getMessage());
         }
+// Работа с коллекциями
+        System.out.println("\nРАБОТА С КОЛЛЕКЦИЯМИ");
+        System.out.println("Первоначальная корзина:");
+        basket1.addProduct(product1);
+        basket1.addProduct(product2);
+        basket1.addProduct(product3);
+        basket1.addProduct(product1);
+        basket1.addProduct(product2);
+        basket1.printBasket();
+        //удаление существующего продукта
+        System.out.println("\nСписок удаленных элементов: " + basket1.deleteProduct("Огурец"));
+        System.out.println("\nКорзина после удаления элементов поиска:");
+        basket1.printBasket();
+        //удаление несуществующего продукта
+        basket1.deleteProduct("Нет такого продукта");
+        System.out.println("\nПечать корзины:");
+        basket1.printBasket();
 
     }
 
