@@ -10,9 +10,7 @@ import org.skypro.skyshop.product.FixPriceProduct;
 import org.skypro.skyshop.product.Product;
 import org.skypro.skyshop.product.SimpleProduct;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.Map;
 
 public class App {
     public static void main(String[] args) {
@@ -88,7 +86,9 @@ public class App {
         System.out.println("\nПоиск товара по имени в пустой корзине:");
         basket1.productSearch("Лук");
 
-        //ДЗ по разделу ООП: полиморфизм и интерфейсы
+//ДЗ по разделу ООП: полиморфизм и интерфейсы
+        //изменения Map
+        System.out.println("\nДЗ ПО ПОИСКОВОЙ МАШИНЕ:");
         SearchEngine searchEngine = new SearchEngine();
         searchEngine.add(product1);
         searchEngine.add(product2);
@@ -108,7 +108,7 @@ public class App {
         searchEngine.add(article3);
         searchEngine.add(article4);
 
-        System.out.println("\nВывод нового элеманта статья и ее текст:");
+        System.out.println("\nВывод нового элемента статья и ее текст:");
         System.out.println(article1.getStringRepresentation());
 
         System.out.println("\nВывод продукта через новый элемент:");
@@ -119,15 +119,15 @@ public class App {
         System.out.println("\nКоличество элементов в массиве: " + searchEngine.getSizeArr());
 
         System.out.println("\nВывод полученного массива из поиска:");
-        List<Searchable> searcha1 = searchEngine.search("Лимон");
+        Map<String,Searchable> searcha1 = searchEngine.search("Лимон");
         System.out.println(searcha1);
-        List<Searchable> searcha2 = searchEngine.search("Огурец");
+        Map<String,Searchable> searcha2 = searchEngine.search("Огурец");
         System.out.println(searcha2);
-        List<Searchable> searcha3 = searchEngine.search("Шоколад");
+        Map<String,Searchable> searcha3 = searchEngine.search("Шоколад");
         System.out.println(searcha3);
-        List<Searchable> searcha4 = searchEngine.search("Заголовок 1");
+        Map<String,Searchable> searcha4 = searchEngine.search("Заголовок 1");
         System.out.println(searcha4);
-        List<Searchable> searcha5 = searchEngine.search("Неизвестный текст");
+        Map<String,Searchable> searcha5 = searchEngine.search("Неизвестный текст");
         System.out.println(searcha5);
 
         SearchEngine testSearch = new SearchEngine();
@@ -143,7 +143,7 @@ public class App {
         testSearch.add(product1);
 
         System.out.println("\nТест на количество в массиве searh:");
-        List<Searchable> test1 = testSearch.search("Огурец");
+        Map<String, Searchable> test1 = testSearch.search("Огурец");
         System.out.println("Список найденных продуктов: " + test1);
 
 //        Проверка для ДЗ по исключениям
