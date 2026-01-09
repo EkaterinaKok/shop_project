@@ -44,7 +44,7 @@ public class Article implements Searchable {
     }
 
     @Override
-    public int hashCode(){
+    public int hashCode() {
         return Objects.hash(title);
     }
 

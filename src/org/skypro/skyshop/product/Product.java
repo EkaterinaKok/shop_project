@@ -7,8 +7,8 @@ import java.util.Objects;
 public abstract class Product implements Searchable {
     private String name;
 
-    public Product(String name) throws IllegalArgumentException{
-        if (name == null || name.isBlank()){
+    public Product(String name) throws IllegalArgumentException {
+        if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Неверное название продукта.");
         }
         this.name = name;
@@ -33,7 +33,7 @@ public abstract class Product implements Searchable {
     }
 
     @Override
-    public boolean equals(Object o){
+    public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
@@ -41,7 +41,7 @@ public abstract class Product implements Searchable {
     }
 
     @Override
-    public int hashCode(){
+    public int hashCode() {
         return Objects.hash(name);
     }
 
