@@ -4,7 +4,7 @@ import java.util.*;
 
 public class SearchEngine {
 
-    private List<Searchable> searchables = new ArrayList<>();
+    private HashSet<Searchable> searchables = new HashSet<>();
     private int sizeArr;
 
     public int getSizeArr() {
@@ -12,17 +12,15 @@ public class SearchEngine {
     }
 
     public SearchEngine() {
-
     }
 
-    public Map<String, Searchable> search(String string) {
-        Map<String, Searchable> result = new TreeMap<>();
-        boolean find = false;
+
+    public Set<Searchable> search(String string) {
+        Set<Searchable> result = new TreeSet<>(new Searchable.SearchComporator());
 
         for (Searchable searchable : searchables) {
-            if (searchable.getSearchTerm().contains(string)) {
-                String key = searchable.getSearchTerm();
-                result.put(key, searchable);
+            if (searchable.getSearchTerm().toLowerCase().contains(string.toLowerCase())) {
+                result.add(searchable);
             }
         }
 
@@ -32,7 +30,6 @@ public class SearchEngine {
 
         return result;
     }
-
 
     public void add(Searchable searchable) {
         if (searchable == null) {
@@ -73,5 +70,10 @@ public class SearchEngine {
     @Override
     public int hashCode() {
         return super.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return searchables.toString();
     }
 }

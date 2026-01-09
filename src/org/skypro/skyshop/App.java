@@ -10,7 +10,7 @@ import org.skypro.skyshop.product.FixPriceProduct;
 import org.skypro.skyshop.product.Product;
 import org.skypro.skyshop.product.SimpleProduct;
 
-import java.util.Map;
+import java.util.Set;
 
 public class App {
     public static void main(String[] args) {
@@ -87,6 +87,7 @@ public class App {
         basket1.productSearch("Лук");
 
 //ДЗ по разделу ООП: полиморфизм и интерфейсы
+//ПОИСКОВАЯ МАШИНА
         //изменения Map
         System.out.println("\nДЗ ПО ПОИСКОВОЙ МАШИНЕ:");
         SearchEngine searchEngine = new SearchEngine();
@@ -107,6 +108,8 @@ public class App {
         searchEngine.add(article2);
         searchEngine.add(article3);
         searchEngine.add(article4);
+        searchEngine.add(article2);
+        searchEngine.add(article1);
 
         System.out.println("\nВывод нового элемента статья и ее текст:");
         System.out.println(article1.getStringRepresentation());
@@ -119,15 +122,15 @@ public class App {
         System.out.println("\nКоличество элементов в массиве: " + searchEngine.getSizeArr());
 
         System.out.println("\nВывод полученного массива из поиска:");
-        Map<String,Searchable> searcha1 = searchEngine.search("Лимон");
+        Set<Searchable> searcha1 = searchEngine.search("Лимон");
         System.out.println(searcha1);
-        Map<String,Searchable> searcha2 = searchEngine.search("Огурец");
+        Set<Searchable> searcha2 = searchEngine.search("Огурец");
         System.out.println(searcha2);
-        Map<String,Searchable> searcha3 = searchEngine.search("Шоколад");
+        Set<Searchable> searcha3 = searchEngine.search("Шоколад");
         System.out.println(searcha3);
-        Map<String,Searchable> searcha4 = searchEngine.search("Заголовок 1");
+        Set<Searchable> searcha4 = searchEngine.search("Заголовок 1");
         System.out.println(searcha4);
-        Map<String,Searchable> searcha5 = searchEngine.search("Неизвестный текст");
+        Set<Searchable> searcha5 = searchEngine.search("Неизвестный текст");
         System.out.println(searcha5);
 
         SearchEngine testSearch = new SearchEngine();
@@ -137,13 +140,15 @@ public class App {
         testSearch.add(product1);
         testSearch.add(product2);
         testSearch.add(product3);
-        testSearch.add(product1);  // Огурцов 6
+        testSearch.add(product1);  // Огурцов 6, Яблоков 2, Лука 3
         testSearch.add(product1);
         testSearch.add(product1);
         testSearch.add(product1);
 
+        System.out.println("\nСписок: " + testSearch);  // Вывело все по 1 экземпляру
+
         System.out.println("\nТест на количество в массиве searh:");
-        Map<String, Searchable> test1 = testSearch.search("Огурец");
+        Set<Searchable> test1 = testSearch.search("Огурец");
         System.out.println("Список найденных продуктов: " + test1);
 
 //        Проверка для ДЗ по исключениям
@@ -151,27 +156,27 @@ public class App {
         System.out.println("\nПРОВЕРКА ДЗ ПО ИСКЛЮЧЕНИЯМ:");
         try {
             Product product4 = new SimpleProduct("", 10);
-        } catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
         try {
             Product product5 = new SimpleProduct("   ", 20);
-        } catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
         try {
             Product product6 = new SimpleProduct(null, 30);
-        } catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
         try {
             Product product7 = new SimpleProduct("Икра", -5);
-        } catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
         try {
             Product product8 = new SimpleProduct("Кетчуп", 0);
-        } catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
         try {
@@ -223,6 +228,21 @@ public class App {
         basket1.deleteProduct("Нет такого продукта");
         System.out.println("\nПечать корзины:");
         basket1.printBasket();
+
+// ПРОВЕРКА КОМПОРАТОРА
+        System.out.println("\nПРОВЕРКА КОМПАРАТОРА");
+        SearchEngine testSearchTreeSet = new SearchEngine();
+        Article saleShort = new Article("«Авокадо‑драйв»", "Скидка 20% на любое количество авокадо — хватайте, пока свежие!");
+        Article saleLong = new Article("«Авокадо‑феерия: чем больше, тем выгоднее!»", "Купите 5 авокадо — получите скидку 30% на всю покупку. Идеальная возможность запастись полезным суперфудом по суперцене!");
+        Article saleAverage = new Article("«Авокадо: цена падает!»", "При покупке двух авокадо третье — в подарок. Вкусная экономия для ваших салатов и тостов.");
+        Product product10 = new SimpleProduct("Авокадо", 250);
+
+        testSearchTreeSet.add(saleShort);
+        testSearchTreeSet.add(saleLong);
+        testSearchTreeSet.add(saleAverage);
+        testSearchTreeSet.add(product10);
+
+        System.out.println("Список найденных продуктов:\n " + testSearchTreeSet.search("авокадо"));
 
     }
 
