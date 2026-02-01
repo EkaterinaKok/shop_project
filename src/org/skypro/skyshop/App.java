@@ -242,7 +242,7 @@ public class App {
         testSearchTreeSet.add(saleAverage);
         testSearchTreeSet.add(product10);
 
-        System.out.println("Список найденных продуктов:\n " + testSearchTreeSet.search("авокадо"));
+        System.out.println("Список найденных элементов:\n " + testSearchTreeSet.search("авокадо"));
 
     }
 

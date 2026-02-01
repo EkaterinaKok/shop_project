@@ -5,10 +5,10 @@ import org.skypro.skyshop.product.DiscountedProduct;
 import org.skypro.skyshop.product.Product;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class ProductBasket {
     private HashMap<String, LinkedList<Product>> products = new HashMap<>();
-    private int total;
 
     //Добавление продукта
     public void addProduct(Product product) {
@@ -31,50 +31,39 @@ public class ProductBasket {
 
     //Подсчет суммы
     public int total() {
-        total = 0;
+       // int total = 0;
 
         if (products == null || products.isEmpty()) {
             System.out.println("В корзине пусто.");
             return -1;
         }
 
-        for (LinkedList<Product> productList : products.values()) {
-            for (Product product : productList) {
-                if (product != null) {
-                    total += product.getPrice();
-                }
-            }
-        }
-        return total;
+        return products.values().stream()
+                .flatMap(Collection::stream)
+                .filter(Objects::nonNull)
+                .mapToInt(Product::getPrice)
+                .sum();
     }
+
+// Подсчет специальных продуктов
+    private long getSpecialCount(){
+        return products.values().stream()
+                .flatMap(Collection::stream)
+                .filter(Product::isSpecial)
+                .count();
+    }
+
 
     //Печать корзины
     public void print() {
-        int countSpecial = 0;
-        boolean hasProducts = false;
 
-        for (Map.Entry<String, LinkedList<Product>> entry : products.entrySet()) {
-            LinkedList<Product> productList = entry.getValue();
-
-            for (Product product : productList) {
-                if (product != null) {
-                    hasProducts = true;
-                    if (product.isSpecial()) {
-                        countSpecial++;
-                    }
-                    System.out.println(product);
-                }
-            }
-        }
-
-        // Если не нашли ни одного товара
-        if (!hasProducts) {
-            System.out.println("В корзине пусто.");
-            return;
-        }
+        products.values().stream()
+                .flatMap(Collection::stream)
+                .filter(Objects::nonNull)
+                .forEach(System.out::println);
 
         printTotal();
-        System.out.println("Товаров по специальной цене: " + countSpecial);
+        System.out.println("Товаров по специальной цене: " + getSpecialCount());
     }
 
     //Вывод итога
